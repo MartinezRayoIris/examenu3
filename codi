@@ -1,0 +1,123 @@
+package ColasEx;
+
+import java.util.Scanner;
+
+public class Colas {
+        NodoCola cima, fin;
+        int tamanio;
+        
+        
+        public Colas()
+        {
+            cima = null;
+            fin = null;
+
+        }
+        public boolean ColaVacia()
+        {
+            if(cima==null)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        public void Insertar(String clientes)
+        {      
+            NodoCola nuevon = new NodoCola();
+            nuevon.elemento = clientes;
+            nuevon.siguiente = null;
+            if (ColaVacia())
+            {
+                cima = nuevon;
+                fin = nuevon;
+            }else
+            {
+                fin.siguiente = nuevon;
+                fin = nuevon;
+                
+            }
+           
+        }
+        public String Extraer()
+        {
+            if (!ColaVacia())
+            {
+                String info = cima.elemento;
+                if(cima == fin)
+                {
+                    cima = null;
+                    fin = null;
+                }else {
+                    cima = cima.siguiente;
+                }
+                return info;
+            }else {
+                return "";
+            }
+        }
+        public void MostrarCola()
+        {
+               
+
+        } 
+        public void PasarAVentanilla()
+        {
+
+        }
+        public void SalirVentanilla(int sale)
+        {
+            cima=cima.siguiente;
+        }
+    
+    public static void main(String[] args) {
+    Scanner leer = new Scanner(System.in);
+        int opcion;
+        int turno=0, sale=0;
+        boolean continuar = true;
+        //boolean sigue = true;
+        String []clientes= {"Vip","Comun"};
+        Colas cola = new Colas();
+        System.out.println("Uso de Colas Dinamicas");
+        while(continuar){
+            System.out.println("Menú");
+            System.out.println("1.Nueo Cliente");
+            System.out.println("2.Pasar a Ventanilla");
+            System.out.println("3.Mostrar Colas");
+            System.out.println("4.Terminar una ventanilla");
+            System.out.println("5.Salir");
+            System.out.println("Elige una opcion");
+            opcion = leer.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    if(turno == 0)
+                        turno = (int) (Math.random()*10+1);
+                    else
+                        turno++;
+                        int numero = (int) (Math.random()*2+0);
+                    if (numero ==0)
+                        cola.Insertar(clientes[0]);
+                    else 
+                        cola.Insertar(clientes[1]);
+                break;
+                case 2:
+                    cola.Extraer();
+                    cola.PasarAVentanilla();
+                break;
+                case 3:
+                    cola.MostrarCola();
+                break;
+                case 4:
+                    cola.SalirVentanilla(sale);
+                break;
+                case 5:
+                    continuar = false;
+                break;
+                default:
+                break;
+            }
+        }
+    }
+}
